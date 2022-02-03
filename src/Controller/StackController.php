@@ -12,13 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-/**
- * @Route("/stack")
- */
 class StackController extends AbstractController
 {
     /**
-     * @Route("/", name="stack_index", methods={"GET"})
+     * @Route("/skills", name="skills", methods={"GET"})
      */
     public function index(StackRepository $stackRepository): Response
     {
@@ -28,7 +25,7 @@ class StackController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="stack_new", methods={"GET", "POST"})
+     * @Route("/stack/new", name="stack_new", methods={"GET", "POST"})
      * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -49,7 +46,7 @@ class StackController extends AbstractController
             $entityManager->persist($stack);
             $entityManager->flush();
 
-            return $this->redirectToRoute('stack_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('skills', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('stack/new.html.twig', [
@@ -59,7 +56,7 @@ class StackController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="stack_edit", methods={"GET", "POST"})
+     * @Route("/stack/{id}/edit", name="stack_edit", methods={"GET", "POST"})
      * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Stack $stack, EntityManagerInterface $entityManager): Response
@@ -83,7 +80,7 @@ class StackController extends AbstractController
             
             $entityManager->flush();
 
-            return $this->redirectToRoute('stack_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('skills', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('stack/edit.html.twig', [
@@ -93,7 +90,7 @@ class StackController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="stack_delete", methods={"POST"})
+     * @Route("/stack/{id}", name="stack_delete", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Stack $stack, EntityManagerInterface $entityManager): Response
@@ -104,6 +101,6 @@ class StackController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('stack_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('skills', [], Response::HTTP_SEE_OTHER);
     }
 }

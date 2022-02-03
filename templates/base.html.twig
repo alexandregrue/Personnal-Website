@@ -23,20 +23,27 @@
 <body>
     <nav>
         <div class="top-nav">
-            <h1>AG!</h1>
+            <h1><a href="{{ path('home') }}">AG!</a></h1>
             <a href="javascript:void(0);" class="icon" onclick="myFunction()">
                 <i class="fa fa-bars"></i>
             </a>
         </div>
         <div class="nav-link" id="nav-link">
-            <a href="#">Skills</a>
-            <a href="#">Projects</a>
-            <a href="#">Experiences</a>
+            <a href="{{ path('skills') }}">Skills</a>
+            <a href="{{ path('project_index') }}">Projects</a>
+            <a href="{{ path('experience_index') }}">Experiences</a>
             <a href="#">Resume</a>
         </div>
 
     </nav>
     {% block body %}{% endblock %}
+    <footer>
+        <div class="logo-footer">
+            <img src="{{ asset('build/images/www.png') }}" alt="My website">
+            <img src="{{ asset('build/images/github.png') }}" alt="My github">
+            <img src="{{ asset('build/images/linkedin.png') }}" alt="My linkedin">
+        </div>
+    </footer>
     <script>
         function myFunction() {
             var x = document.getElementById("nav-link");

@@ -5,6 +5,9 @@
 
 body {
     background-color: #000000;
+    min-height: 100%;
+    position: absolute;
+    min-width: 100%;
 
     nav {
         margin: 0 1rem;
@@ -17,6 +20,9 @@ body {
             h1 {
                 font-size: 2.25rem;
                 font-weight: bold;
+                a {
+                    text-decoration: none;
+                }
             }
 
             a {
@@ -44,10 +50,25 @@ body {
             display: none;
         }
     }
+
+    footer {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        display: flex;
+        justify-content: flex-end;
+        img {
+            margin-right: 2.5rem;
+            width: 2.5rem;
+        }
+
+    }
 }
 
 @media screen and (min-width: 1024px) {
     body {
+        min-height: 100%;
 
         nav {
             display: flex;
@@ -55,7 +76,7 @@ body {
             align-items: center;
 
             .top-nav {
-                a {
+                .icon {
                     display: none;
                 }
 
