@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/stack")
@@ -28,6 +29,7 @@ class StackController extends AbstractController
 
     /**
      * @Route("/new", name="stack_new", methods={"GET", "POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -57,17 +59,8 @@ class StackController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="stack_show", methods={"GET"})
-     */
-    public function show(Stack $stack): Response
-    {
-        return $this->render('stack/show.html.twig', [
-            'stack' => $stack,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="stack_edit", methods={"GET", "POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Stack $stack, EntityManagerInterface $entityManager): Response
     {
@@ -101,10 +94,12 @@ class StackController extends AbstractController
 
     /**
      * @Route("/{id}", name="stack_delete", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Stack $stack, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$stack->getId(), $request->request->get('_token'))) {
+            unlink($this->getParameter('stack_directory').'/'.$stack->getUrl());
             $entityManager->remove($stack);
             $entityManager->flush();
         }

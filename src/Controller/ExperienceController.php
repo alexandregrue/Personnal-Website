@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 /**
  * @Route("/experience")
@@ -28,6 +30,7 @@ class ExperienceController extends AbstractController
 
     /**
      * @Route("/new", name="experience_new", methods={"GET", "POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -50,6 +53,7 @@ class ExperienceController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="experience_edit", methods={"GET", "POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Experience $experience, EntityManagerInterface $entityManager): Response
     {
@@ -70,6 +74,7 @@ class ExperienceController extends AbstractController
 
     /**
      * @Route("/{id}", name="experience_delete", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Experience $experience, EntityManagerInterface $entityManager): Response
     {

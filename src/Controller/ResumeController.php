@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/resume")
@@ -18,6 +19,7 @@ class ResumeController extends AbstractController
 {
     /**
      * @Route("/", name="resume_index", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(ResumeRepository $resumeRepository): Response
     {
@@ -28,6 +30,7 @@ class ResumeController extends AbstractController
 
     /**
      * @Route("/new", name="resume_new", methods={"GET", "POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -69,6 +72,7 @@ class ResumeController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="resume_edit", methods={"GET", "POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Resume $resume, EntityManagerInterface $entityManager): Response
     {
@@ -98,10 +102,12 @@ class ResumeController extends AbstractController
 
     /**
      * @Route("/{id}", name="resume_delete", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Resume $resume, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$resume->getId(), $request->request->get('_token'))) {
+            unlink($this->getParameter('resume_directory').'/'.$resume->getName());
             $entityManager->remove($resume);
             $entityManager->flush();
         }

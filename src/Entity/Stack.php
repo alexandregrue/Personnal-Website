@@ -34,6 +34,11 @@ class Stack
      */
     private ?string $url;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private ?string $category;
+
     public function __construct()
     {
         $this->projects = new ArrayCollection();
@@ -91,6 +96,18 @@ class Stack
     public function setUrl(string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

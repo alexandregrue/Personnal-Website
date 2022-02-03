@@ -1,0 +1,64 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 3rem;
+    border: 3px solid #AFAFAF;
+    border-radius: 32px;
+    
+    
+    .aboutMe {
+        margin-top: 3rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+         .presentation{
+
+            font-size: 2.25rem;
+            font-weight: bold;
+            text-align: justify;
+            width: 70%;
+            
+        }
+        span {
+            background: linear-gradient(90deg, #F59E0B 39.95%, #EF4444 77.15%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .introduction {
+            margin-top: 3rem;
+            font-size: 1.5rem;
+            text-align: justify;
+            width: 60%;
+        }
+    }
+    img {
+        margin: 3rem auto;
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .home {
+        width: 90%;
+        max-width: 85rem;
+        flex-direction: row;
+        .aboutMe {
+            width: 60%;
+            margin: 3rem 1rem;
+            .presentation {
+                width: 80%;
+            }
+            .introduction {
+                width: 80%;
+                margin-top: 2rem;
+            }
+            
+        }
+        img {
+            width: 40%;
+        }
+    }
+  }
