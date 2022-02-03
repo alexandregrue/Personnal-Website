@@ -24,7 +24,7 @@ class ExperienceController extends AbstractController
     public function index(ExperienceRepository $experienceRepository): Response
     {
         return $this->render('experience/index.html.twig', [
-            'experiences' => $experienceRepository->findAll(),
+            'experiences' => $experienceRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 

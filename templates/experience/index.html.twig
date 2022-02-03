@@ -1,8 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Experience index{% endblock %}
+{% block title %}Experiences{% endblock %}
 
 {% block body %}
+
+<div class="experience">
+{% for experience in experiences %}
+<div class="experience-container">
+    <div class="container">
+    <h2>{{ experience.title }}</h2>
+    <h3>{{ experience.company }}</h3>
+    <p>{{ experience.startDate }} - {{ experience.endDate }}</p>
+    <p>{{ experience.city }} - {{ experience.country }}</p>
+    <h4>Missions :</h4>
+    <p class="description">{{ experience.description }}</p>
+    {% if is_granted("ROLE_ADMIN") %}
+    
+
+<a href="{{ path('experience_edit', {'id': experience.id}) }}">Edit</a>
+{% endif %}
+</div>
+
+</div>
+    
+{% endfor %}
+</div>
+
+
+{% if is_granted("ROLE_ADMIN") %}
+
+    
+<div class="tableofexperience">
     <h1>Experience index</h1>
 
     <table class="table">
@@ -31,7 +59,7 @@
                 <td>{{ experience.country }}</td>
                 <td>{{ experience.description }}</td>
                 <td>
-                    <a href="{{ path('experience_show', {'id': experience.id}) }}">show</a>
+
                     <a href="{{ path('experience_edit', {'id': experience.id}) }}">edit</a>
                 </td>
             </tr>
@@ -44,4 +72,6 @@
     </table>
 
     <a href="{{ path('experience_new') }}">Create new</a>
+    {% endif %}
+</div>
 {% endblock %}

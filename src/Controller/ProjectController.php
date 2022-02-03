@@ -126,7 +126,9 @@ class ProjectController extends AbstractController
 
         if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->request->get('_token'))) {
             foreach($names as $name) {
-                unlink($this->getParameter('project_directory').'/'.$name);
+                if(file_exists($this->getParameter('project_directory').'/'.$name)) {
+                    unlink($this->getParameter('project_directory').'/'.$name);
+                }
             }
             $entityManager->remove($project);
             $entityManager->flush();

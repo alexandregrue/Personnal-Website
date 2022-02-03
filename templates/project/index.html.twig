@@ -3,6 +3,32 @@
 {% block title %}Project index{% endblock %}
 
 {% block body %}
+
+<div class="project">
+    {% for project in projects %}
+    {{ dump(project) }}
+
+    <div class="project-container">
+        <div class="container">
+            <h2>{{ project.title }}</h2>
+            <div class="macbook">
+                <div class="project-images">
+                    {% for project_image in project.projectImages %}
+                        <img src="{{ asset('uploads/projects/' ~ project_image.url)}}" alt="">
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    
+</div>
+
+<div class="tableofproject">
+
+
+
     <h1>Project index</h1>
 
     <table class="table">
@@ -38,4 +64,5 @@
     </table>
 
     <a href="{{ path('project_new') }}">Create new</a>
+</div>
 {% endblock %}
