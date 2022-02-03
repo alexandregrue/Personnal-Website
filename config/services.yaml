@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     resume_directory: '%kernel.project_dir%/public/uploads/resumes'
+    stack_directory: '%kernel.project_dir%/public/uploads/stacks'
+    project_directory: '%kernel.project_dir%/public/uploads/projects'
 
 services:
     # default configuration for services in *this* file

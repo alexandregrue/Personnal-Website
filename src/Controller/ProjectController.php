@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Entity\ProjectImage;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,6 +37,17 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $projectImages = $form->get('project_image')->getData();
+
+            foreach ($projectImages as $projectImage) {
+                $file = md5(uniqid()).'.'.$projectImage->guessExtension();
+                $projectImage->move($this->getParameter('project_directory'), $file);
+
+                $projectImage = new ProjectImage();
+                $projectImage->setUrl($file);
+                $project->addProjectImage($projectImage);
+            }
+
             $entityManager->persist($project);
             $entityManager->flush();
 
@@ -63,10 +75,29 @@ class ProjectController extends AbstractController
      */
     public function edit(Request $request, Project $project, EntityManagerInterface $entityManager): Response
     {
+        $images = $project->getProjectImages();
+        foreach($images as $images) {
+            $names[] = $images->getUrl();
+            
+        }
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            foreach($names as $name) {
+                unlink($this->getParameter('project_directory').'/'.$name);
+            }
+
+            $projectImages = $form->get('project_image')->getData();
+
+            foreach ($projectImages as $projectImage) {
+                $file = md5(uniqid()).'.'.$projectImage->guessExtension();
+                $projectImage->move($this->getParameter('project_directory'), $file);
+
+                $projectImage = new ProjectImage();
+                $projectImage->setUrl($file);
+                $project->addProjectImage($projectImage);
+            }
             $entityManager->flush();
 
             return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);

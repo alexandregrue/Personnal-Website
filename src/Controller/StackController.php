@@ -36,6 +36,14 @@ class StackController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $stackFile = $form->get('stack')->getData();
+
+            $file = md5(uniqid()).'.'.$stackFile->guessExtension();
+            $stackFile->move($this->getParameter('stack_directory'), $file);
+
+            $stack->setUrl($file);
+
+
             $entityManager->persist($stack);
             $entityManager->flush();
 
@@ -63,10 +71,23 @@ class StackController extends AbstractController
      */
     public function edit(Request $request, Stack $stack, EntityManagerInterface $entityManager): Response
     {
+        $name = $stack->getUrl();
         $form = $this->createForm(StackType::class, $stack);
         $form->handleRequest($request);
+        $name = $stack->getUrl();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            unlink($this->getParameter('stack_directory').'/'.$name);
+
+            $stackFile = $form->get('stack')->getData();
+
+            $file = md5(uniqid()).'.'.$stackFile->guessExtension();
+            $stackFile->move($this->getParameter('stack_directory'), $file);
+            
+
+            $stack->setUrl($file);
+
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('stack_index', [], Response::HTTP_SEE_OTHER);

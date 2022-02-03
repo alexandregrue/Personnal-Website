@@ -43,7 +43,7 @@ class ResumeController extends AbstractController
             $resumeFile->move($this->getParameter('resume_directory'), $file);
 
             $resume->setName($file);
-            
+
 
             $entityManager->persist($resume);
             $entityManager->flush();
@@ -72,10 +72,19 @@ class ResumeController extends AbstractController
      */
     public function edit(Request $request, Resume $resume, EntityManagerInterface $entityManager): Response
     {
+        $name = $resume->getName();
         $form = $this->createForm(ResumeType::class, $resume);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            unlink($this->getParameter('resume_directory').'/'.$name);
+            $resumeFile = $form->get('resume')->getData();
+
+            $file = md5(uniqid()).'.'.$resumeFile->guessExtension();
+            $resumeFile->move($this->getParameter('resume_directory'), $file);
+
+            $resume->setName($file);
+
             $entityManager->flush();
 
             return $this->redirectToRoute('resume_index', [], Response::HTTP_SEE_OTHER);

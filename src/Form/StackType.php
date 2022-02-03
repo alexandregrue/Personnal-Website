@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Stack;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,12 @@ class StackType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('projects')
+            ->add('stack', FileType::class, [
+                'label' => 'Stack Logo',
+                'required' => true,
+                'multiple' => false,
+                'mapped' => false,
+            ])
         ;
     }
 

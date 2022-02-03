@@ -29,6 +29,11 @@ class Stack
      */
     private Collection $projects;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private ?string $url;
+
     public function __construct()
     {
         $this->projects = new ArrayCollection();
@@ -74,6 +79,18 @@ class Stack
         if ($this->projects->removeElement($project)) {
             $project->removeStack($this);
         }
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(string $url): self
+    {
+        $this->url = $url;
 
         return $this;
     }
