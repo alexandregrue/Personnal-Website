@@ -5,31 +5,17 @@
 {% block body %}
     <h1>Resume index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    
         {% for resume in resumes %}
-            <tr>
-                <td></td>
-                <td><img src="{{ asset('/uploads/resumes/' ~ resume.name) }}" alt=""></td>
-                <td>
-                    <a href="{{ path('resume_show', {'id': resume.id}) }}">show</a>
-                    <a href="{{ path('resume_edit', {'id': resume.id}) }}">edit</a>
-                </td>
-            </tr>
+            {% if 'pdf' in resume.name %}
+            <div class="document">
+            <object type="application/pdf" data="{{ asset('/uploads/resumes/' ~ resume.name) }}"></object>
+        </div>
+            {% endif %}
         {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
+            <p>No resumes found</p>
         {% endfor %}
-        </tbody>
-    </table>
+
 
     <a href="{{ path('resume_new') }}">Create new</a>
 {% endblock %}

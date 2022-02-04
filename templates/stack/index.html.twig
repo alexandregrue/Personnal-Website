@@ -65,7 +65,7 @@
         </div>
     </div>
 
-</section>
+
 
 {% if is_granted("ROLE_ADMIN") %}
 <h1>Stack index</h1>
@@ -98,5 +98,7 @@
 </table>
 
 <a href="{{ path('stack_new') }}">Create new</a>
+
 {%endif%}
+</section>
 {% endblock %}

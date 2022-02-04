@@ -23,25 +23,25 @@
 <body>
     <nav>
         <div class="top-nav">
-            <h1><a href="{{ path('home') }}">AG!</a></h1>
+            <h1 class="animate__animated animate__backInDown"><a href="{{ path('home') }}">AG!</a></h1>
             <a href="javascript:void(0);" class="icon" onclick="myFunction()">
                 <i class="fa fa-bars"></i>
             </a>
         </div>
-        <div class="nav-link" id="nav-link">
+        <div class="nav-link animate__animated animate__slideInDown" id="nav-link">
             <a href="{{ path('skills') }}">Skills</a>
             <a href="{{ path('project_index') }}">Projects</a>
             <a href="{{ path('experience_index') }}">Experiences</a>
-            <a href="#">Resume</a>
+            <a href="{{ asset('/uploads/resumes/99284450b549b790549aef0150017ae1.pdf') }}">Resume</a>
         </div>
 
     </nav>
     {% block body %}{% endblock %}
     <footer>
         <div class="logo-footer">
-            <img src="{{ asset('build/images/www.png') }}" alt="My website">
-            <img src="{{ asset('build/images/github.png') }}" alt="My github">
-            <img src="{{ asset('build/images/linkedin.png') }}" alt="My linkedin">
+            <a href="#"><img src="{{ asset('build/images/www.png') }}" alt="My website"></a>
+            <a href="https://github.com/alexandregrue"><img src="{{ asset('build/images/github.png') }}" alt="My github"></a>
+            <a href="https://www.linkedin.com/in/alexandregrué/"><img src="{{ asset('build/images/linkedin.png') }}" alt="My linkedin"></a>
         </div>
     </footer>
     <script>

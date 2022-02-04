@@ -16,7 +16,7 @@ class StackType extends AbstractType
         $builder
             ->add('name')
             ->add('category', ChoiceType::class, [
-                'label' => 'category',
+                'label' => 'Category',
                 'choices' => [
                     'Languages' => 'Languages',
                     'Frameworks' => 'Frameworks',
