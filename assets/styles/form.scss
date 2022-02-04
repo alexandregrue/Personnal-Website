@@ -1,0 +1,32 @@
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 3rem auto;
+    width: 90%;
+    box-sizing: border-box;
+    width: 20rem;
+
+    label {
+        margin-bottom: 2rem;
+        
+    }
+    input[type="text"],
+    input[type="file"],
+    input[type="number"],
+    select,
+    textarea {
+        color: #000000;
+        margin-bottom: 1rem;
+        width: 100%;
+        
+    }
+    option {
+        color: #000000;
+    }
+    button {
+        background-color: #000000;
+        border: 1px solid #FFFFFF;
+        border-radius: 0.5rem;
+    }
+}

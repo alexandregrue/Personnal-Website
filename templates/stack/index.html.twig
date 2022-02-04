@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Skills{% endblock %}
+
+{% block body %}
+<section class="stack">
+    <div class="languages">
+        <div class="container">
+            <h2>Languages : </h2>
+            <div class="image-container">
+                {% for stack in stacks %}
+
+                {% if stack.category == 'Languages' %}
+                <img src="{{ asset('uploads/stacks/' ~ stack.url) }}" alt="">
+
+                {% endif %}
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="frameworks">
+        <div class="container">
+            <h2>Languages : </h2>
+            <div class="image-container">
+                {% for stack in stacks %}
+
+                {% if stack.category == 'Frameworks' %}
+                <img src="{{ asset('uploads/stacks/' ~ stack.url) }}" alt="">
+
+                {% endif %}
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="tools">
+        <div class="container">
+            <h2>Languages : </h2>
+            <div class="image-container">
+                {% for stack in stacks %}
+
+                {% if stack.category == 'Tools' %}
+                <img src="{{ asset('uploads/stacks/' ~ stack.url) }}" alt="">
+
+                {% endif %}
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="os">
+        <div class="container">
+            <h2>Languages : </h2>
+            <div class="image-container">
+                {% for stack in stacks %}
+
+                {% if stack.category == 'OS' %}
+                <img src="{{ asset('uploads/stacks/' ~ stack.url) }}" alt="">
+
+                {% endif %}
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+
+{% if is_granted("ROLE_ADMIN") %}
+<h1>Stack index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for stack in stacks %}
+        <tr>
+            <td>{{ stack.id }}</td>
+            <td>{{ stack.name }}</td>
+            <td>{{ stack.category }}</td>
+            <td>
+
+                <a href="{{ path('stack_edit', {'id': stack.id}) }}">edit</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="3">no records found</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('stack_new') }}">Create new</a>
+
+{%endif%}
+</section>
+{% endblock %}

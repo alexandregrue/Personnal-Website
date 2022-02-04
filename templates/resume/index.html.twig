@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Resume index{% endblock %}
+
+{% block body %}
+    <h1>Resume index</h1>
+
+    
+        {% for resume in resumes %}
+            {% if 'pdf' in resume.name %}
+            <div class="document">
+            <object type="application/pdf" data="{{ asset('/uploads/resumes/' ~ resume.name) }}"></object>
+        </div>
+            {% endif %}
+        {% else %}
+            <p>No resumes found</p>
+        {% endfor %}
+
+
+    <a href="{{ path('resume_new') }}">Create new</a>
+{% endblock %}
